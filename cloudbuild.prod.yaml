@@ -22,11 +22,11 @@ steps:
 
   - id: "adjusting k8s deployment file"
     name: "gcr.io/cloud-builders/gcloud"
-    entrypoint: "bin/sh"
+    entrypoint: "/bin/sh"
     args:
       - "-c"
       - |
-        sed '$#img-app-deployment#gcr.io/$PROJECT_ID/go-hpa:$SHORT_SHA' .k8s/deployment.yaml > k8s/deployment-new.yaml;
+        sed 's#img-app-deployment#gcr.io/$PROJECT_ID/go-hpa:$SHORT_SHA#g' .k8s/deployment.yaml > k8s/deployment-new.yaml;
         cat k8s/deployment-new.yaml;
 
   - id: "Deploying k8s"
